@@ -1,8 +1,8 @@
 package gwjwnsar.movies.repo;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,28 +28,54 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.repoA.save(new Actor(1, "Leonardo DiCaprio"));
-		this.repoA.save(new Actor(2, "Margot Robbie"));
-		this.repoA.save(new Actor(3, "Jonah Hill"));
-		this.repoA.save(new Actor(4, "Jordan Belfort"));
-		this.repoA.save(new Actor(5, "Tim Robbins"));
-		this.repoA.save(new Actor(6, "Morgan Freeman"));
-		this.repoA.save(new Actor(7, "Ranbir Kapoor"));
-		this.repoA.save(new Actor(8, "Deepika Padukone"));
-		this.repoA.save(new Actor(9, "Salman Khan"));
-		this.repoA.save(new Actor(10, "Aamir Khan"));
-		this.repoA.save(new Actor(11, "Akshay Kumar"));
 		
-		this.repoD.save(new Director(1,"Martin Scorsese"));
-		this.repoD.save(new Director(2,"Frank Darabont"));
-		this.repoD.save(new Director(3,"Ayan Mukerji"));
-		this.repoD.save(new Director(4,"Subhash Kapoor"));
-		this.repoD.save(new Director(5,"Sanjay Leela Bhansali"));
-		this.repoD.save(new Director(6,"Rajkumar Hirani"));
-		this.repoD.save(new Director(7,"Neeraj Pandey"));
-		this.repoD.save(new Director(8,"Imtiaz Ali"));
+		Movie m = new Movie();
 		
+		Director d = new Director("Martin Scorsese");
 		
+		Actor leonardo = new Actor("Leonardo DiCaprio");
+		Actor margot = new Actor("Margot Robbie");
+		Actor jonah = new Actor("Jonah Hill");
+		Actor jordan = new Actor("Jordan Belfort");
+		Set<Actor> leadActors = new HashSet<>();
+		leadActors.add(leonardo);
+		leadActors.add(margot);
+		leadActors.add(jonah);
+		leadActors.add(jordan);
+		
+		repoD.save(d);
+		
+		for (Actor actor : leadActors) {
+			repoA.save(actor);
+		}
+		
+		m.setName("The Wolf of Wall Street");
+		m.setrDate(LocalDate.parse("2014-01-03"));
+		m.setGenre("Biography");
+		m.setcImUrl("https://upload.wikimedia.org/wikipedia/en/d/d8/The_Wolf_of_Wall_Street_%282013%29.png");
+		m.setDirector(d);
+		m.setActors(leadActors);
+		
+		repoM.save(m);
+		
+		Movie m2 = new Movie();
+		Director d2 = new Director("Ayan Mukerji");
+		repoD.save(d2);
+		Set<Actor> lActors = new HashSet<>();
+		String[] actorArr = {"Ranbir Kapoor","Deepika Padukone","Aditya Roy Kapur","Kalki Koechlin","Madhuri Dixit"};
+		for (String str : actorArr) {
+			Actor a = new Actor(str);
+			lActors.add(a);
+			repoA.save(a);
+		}
+		
+		m2.setName("Yeh Jawaani Hai Deewani");
+		m2.setGenre("Drama/Romance");
+		m2.setcImUrl("https://upload.wikimedia.org/wikipedia/en/1/15/Yeh_jawani_hai_deewani.jpg");
+		m2.setrDate(LocalDate.parse("2013-05-31"));
+		m2.setDirector(d2);
+		m2.setActors(lActors);
+		repoM.save(m2);
 	}
 	
 

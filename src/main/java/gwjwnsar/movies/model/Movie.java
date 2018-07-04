@@ -1,7 +1,7 @@
 package gwjwnsar.movies.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +31,16 @@ public class Movie {
 			name="movie_actor",
 			joinColumns=@JoinColumn(name="movie_id", referencedColumnName="id"),
 			inverseJoinColumns=@JoinColumn(name="actor_id", referencedColumnName="id"))
-	private List<Actor> actors;
+	private Set<Actor> actors;
 	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="director_id", referencedColumnName="id")
 	private Director director;
+
+	public Movie() {
+		super();
+	}
 
 	public int getId() {
 		return id;
@@ -80,12 +84,12 @@ public class Movie {
 		this.genre = genre;
 	}
 
-	public List<Actor> getActors() {
+	public Set<Actor> getActors() {
 		return actors;
 	}
 
 	
-	public void setActors(List<Actor> actors) {
+	public void setActors(Set<Actor> actors) {
 		this.actors = actors;
 	}
 
