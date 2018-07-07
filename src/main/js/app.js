@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MoviesList from './movies-list';
 
 class App extends React.Component  {
 	
@@ -11,11 +12,18 @@ class App extends React.Component  {
 	}
 	
 	componentDidMount() {
-		
+		fetch('http://localhost:8080/api/movies')
+		.then((resp) => resp.json())
+		.then(data => {
+			this.setState({movies: data._embedded.movies});
+		})
+		.catch(e => {
+			alert(e.message);
+		});
 	}
 	
 	render() {
-		return <h1>Hello World!</h1>;
+		return <MoviesList movies={this.state.movies} />;
 	}
 }
 

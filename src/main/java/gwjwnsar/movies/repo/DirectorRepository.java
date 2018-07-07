@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import gwjwnsar.movies.model.Director;
 
-@RepositoryRestResource(collectionResourceRel="directors", path="directors")
+@RepositoryRestResource
 public interface DirectorRepository extends JpaRepository<Director, Integer> {
 
 }

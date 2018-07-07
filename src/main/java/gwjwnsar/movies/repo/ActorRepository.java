@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import gwjwnsar.movies.model.Actor;
 
-@RepositoryRestResource(collectionResourceRel="actors", path="actors")
+@RepositoryRestResource
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
 }
